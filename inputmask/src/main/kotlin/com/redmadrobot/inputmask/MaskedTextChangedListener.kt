@@ -32,7 +32,7 @@ open class MaskedTextChangedListener(
 ) : TextWatcher, View.OnFocusChangeListener {
 
     interface ValueListener {
-        fun onTextChanged(maskFilled: Boolean, extractedValue: String, formattedValue: String)
+        fun onTextChanged(maskFilled: Boolean, extractedValue: String, formattedValue: String, isDelete: Boolean)
     }
 
     private val primaryMask: Mask
@@ -128,7 +128,7 @@ open class MaskedTextChangedListener(
             val result = setText(text, it)
             this.afterText = result.formattedText.string
             this.caretPosition = result.formattedText.caretPosition
-            this.valueListener?.onTextChanged(result.complete, result.extractedValue, afterText)
+            this.valueListener?.onTextChanged(result.complete, result.extractedValue, afterText, false)
             return result
         }
     }
@@ -210,7 +210,7 @@ open class MaskedTextChangedListener(
         this.afterText = result.formattedText.string
         this.caretPosition = result.formattedText.caretPosition
 
-        this.valueListener?.onTextChanged(result.complete, result.extractedValue, afterText)
+        this.valueListener?.onTextChanged(result.complete, result.extractedValue, afterText, isDeletion)
     }
 
     override fun onFocusChange(view: View?, hasFocus: Boolean) {
@@ -230,7 +230,7 @@ open class MaskedTextChangedListener(
             this.caretPosition = result.formattedText.caretPosition
             this.field.get()?.setText(afterText)
             this.field.get()?.setSelection(result.formattedText.caretPosition)
-            this.valueListener?.onTextChanged(result.complete, result.extractedValue, afterText)
+            this.valueListener?.onTextChanged(result.complete, result.extractedValue, afterText, false)
         }
     }
 

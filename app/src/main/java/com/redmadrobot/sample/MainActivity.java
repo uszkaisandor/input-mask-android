@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.redmadrobot.inputmask.MaskedTextChangedListener;
 import com.redmadrobot.inputmask.helper.AffinityCalculationStrategy;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +43,7 @@ public final class MainActivity extends AppCompatActivity {
                 AffinityCalculationStrategy.PREFIX,
                 new MaskedTextChangedListener.ValueListener() {
                     @Override
-                    public void onTextChanged(boolean maskFilled, @NonNull final String extractedValue, @NonNull String formattedText) {
+                    public void onTextChanged(boolean maskFilled, @NonNull final String extractedValue, @NonNull String formattedText, boolean isDelete) {
                         logValueListener(maskFilled, extractedValue, formattedText);
                         checkBox.setChecked(maskFilled);
                     }
@@ -64,8 +66,8 @@ public final class MainActivity extends AppCompatActivity {
                 AffinityCalculationStrategy.WHOLE_STRING,
                 new MaskedTextChangedListener.ValueListener() {
                     @Override
-                    public void onTextChanged(boolean maskFilled, @NonNull final String extractedValue, @NonNull String formattedText) {
-                        logValueListener(maskFilled, extractedValue, formattedText);
+                    public void onTextChanged(boolean maskFilled, @NotNull String extractedValue, @NotNull String formattedValue, boolean isDelete) {
+                        logValueListener(maskFilled, extractedValue, formattedValue);
                         checkBox.setChecked(maskFilled);
                     }
                 }
